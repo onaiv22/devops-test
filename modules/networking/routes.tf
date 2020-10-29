@@ -17,5 +17,5 @@ resource "aws_route" "internet_access" {
   count                  = length(var.networks["public_subnets"])
   destination_cidr_block = "0.0.0.0/0"
   route_table_id         = element(aws_route_table.public_route_tables.*.id, count.index)
-  gateway_id             = element(aws_internet_gateway.internet_gateway.*.id, count.index) 
+  gateway_id             = var.gw_id
 }

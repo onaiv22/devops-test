@@ -19,4 +19,6 @@ module "subnets" {
    cidr_block = var.networks
    region     = var.region
    profile    = var.profile
+   gw_id      = module.vpc.vpc_gw
+
 }

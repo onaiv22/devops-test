@@ -5,3 +5,4 @@ variable "profile" {}
 variable "networks" {
    type = map(any)
 }
+variable "gw_id" {}

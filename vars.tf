@@ -13,6 +13,10 @@ variable "networks" {
 
 
 
+
 output "vpc_id" {
   value = module.vpc.vpc_id
+}
+output "vpc_gw" {
+   value = module.vpc.vpc_gw
 }
