@@ -22,3 +22,10 @@ module "subnets" {
    gw_id      = module.vpc.vpc_gw
 
 }
+
+module "alb" {
+   source                  = "./modules/application_alb"
+   vpc_id                  = module.vpc.vpc_id
+   balancer_subnets        = module.subnets.subnet_id
+   idle_timeout            = var.idle_timeout
+}

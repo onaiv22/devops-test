@@ -20,6 +20,14 @@ networks = {
    ]
 }
 
+alb-config = {
+   name                   = "wipro"
+   internal               = "true"
+   listener_port          = "80"
+}
+
+idle_timeout = "600"
+
 tags = {
   project_name      = "devop-test"
   owner             = "wipro"
