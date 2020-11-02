@@ -1,41 +1,37 @@
-data "template_file" "alb_logs_policy" {
-  template = <<eof
-        {
-             "Sid": "Stmt1604063313517",
-                "Action": [
-                    "s3:PutObject"
-                ],
-                "Effect": "Allow",
-                "Resource": "${aws_s3_bucket.alb-logs.id}/*",
-                "Principal": {
-                    "AWS": [
-                      "${aws_alb.alb.arn}"
-                    ]
-                }
-        }
-eof
-}
+data "aws_elb_service_account" "main" {}
 
-resource "aws_s3_bucket_policy" "b-policy" {
-  bucket = aws_s3_bucket.alb-logs.id
-
-  policy = data.template_file.alb_logs_policy.rendered
-}
-
-resource "aws_s3_bucket" "log_bucket" {
-  bucket = "bucket-access-logs-bucket"
-  acl    = "log-delivery-write"
-}
-
-resource "aws_s3_bucket" "alb-logs" {
-  bucket = "alb-logs-bucket-wipro"
+resource "aws_s3_bucket" "elb_logs" {
+  bucket = "alb-log-bucket-wipro"
   acl    = "private"
 
-  logging {
-    target_bucket = aws_s3_bucket.log_bucket.id
-    target_prefix = "log/"
-  }
+  policy = <<POLICY
+{
+  "Id": "Policy",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::alb-log-bucket-wipro/AWSLogs/*",
+      "Principal": {
+        "AWS": [
+          "${data.aws_elb_service_account.main.arn}"
+        ]
+      }
+    }
+  ]
 }
+POLICY
+}
+
+//resource "aws_s3_bucket" "log_bucket" {
+  //bucket = "bucket-access-logs-bucket"
+  //acl    = "log-delivery-write"
+//}
+
+
 
 resource "aws_alb" "alb" {
   name            = var.alb-config["name"]
@@ -47,7 +43,7 @@ resource "aws_alb" "alb" {
   enable_deletion_protection = false
 
   access_logs {
-    bucket  = aws_s3_bucket.alb-logs.id
+    bucket  = aws_s3_bucket.elb_logs.bucket
     enabled = "true"
   }
 
