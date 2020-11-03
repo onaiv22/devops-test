@@ -34,7 +34,7 @@ tags = {
   email             = "femi.okuta@wipro.com"
 }
 
-ami_id = "ami-03be9677"
+ami_id = "aki-02486376"
 
 name                  = "alb"
 ami_name              = "centos"
