@@ -1,5 +1,6 @@
 variable "profile" {}
 variable "idle_timeout" {}
+variable "instance_type" {}
 
 variable "region" {
    type    = string
@@ -24,8 +25,26 @@ variable "alb-config" {
     listener_port          = "80"
   }
 }
+variable "ami_id" {}
 
+variable "target" {
+  type = map(any)
 
+  default = {
+    name                  = "alb"
+    ami_name              = "centos"
+    instance_type         = "t2.micro"
+    ebs_optimized         = false
+    volume_size           = 10
+    volume_type           = "gp2"
+    volume_delete         = true
+    internal              = true
+    description           = "default network ash configuration"
+    min_instances         = 2
+    max_instances         = 4
+    capacity              = 4
+  }
+}
 
 output "vpc_id" {
   value = module.vpc.vpc_id

@@ -1,4 +1,5 @@
 variable "vpc_id" {}
+variable "instance_type" {}
 
 variable "balancer_subnets" {
   type = list(string)
@@ -7,6 +8,7 @@ variable "idle_timeout" {
   default = 60
 }
 
+variable "ami_id" {}
 
 variable "alb-config" {
   type = map(string)
@@ -18,21 +20,31 @@ variable "alb-config" {
   }
 }
 
-//variable "identity_alb_tg_config" {
-  //type = map(string)
+variable "target" {
+  type = map(any)
 
-  //default = {
-  //  forward_port              = "8443"
-    //forward_protocol          = "HTTPS"
-    //sticky_enabled            = "true"
-    //cookie_duration           = 1800
-    //dereg_delay               = 100
-    //healthcheck_path          = "/info/health"
-    //healthcheck_port          = "traffic-port"
-    //healthcheck_protocol      = "HTTPS"
-    //healthy_threshold         = 3
-    //unhealthy_threshold       = 10
-    //timeout_threshold_seconds = 5
-    //healthcheck_interval      = 10
-  //}
-//}
+  default = {
+    name                  = "alb"
+    ami_name              = "centos"
+    instance_type         = "t2.micro"
+    ebs_optimized         = false
+    volume_size           = 10
+    volume_type           = "gp2"
+    volume_delete         = true
+    internal              = true
+    description           = "default network ash configuration"
+    min_instances         = 2
+    max_instances         = 2
+    capacity              = 3
+  }
+}
+
+variable "ingress_rules" {
+  type    = "list"
+  default = []
+}
+
+variable "egress_rules" {
+  type    = "list"
+  default = []
+}

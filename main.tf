@@ -28,4 +28,6 @@ module "alb" {
    vpc_id                  = module.vpc.vpc_id
    balancer_subnets        = module.subnets.subnet_id
    idle_timeout            = var.idle_timeout
+   instance_type           = var.instance_type
+   ami_id                  = var.ami_id
 }

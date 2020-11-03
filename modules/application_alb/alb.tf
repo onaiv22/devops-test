@@ -26,13 +26,6 @@ resource "aws_s3_bucket" "elb_logs" {
 POLICY
 }
 
-//resource "aws_s3_bucket" "log_bucket" {
-  //bucket = "bucket-access-logs-bucket"
-  //acl    = "log-delivery-write"
-//}
-
-
-
 resource "aws_alb" "alb" {
   name            = var.alb-config["name"]
   internal        = var.alb-config["internal"]
@@ -57,16 +50,7 @@ resource "aws_lb_target_group" "alb_asg_target" {
   port                          = 80
   protocol                      = "HTTP"
   vpc_id                        = var.vpc_id
-  load_balancing_algorithm_type = "round_robin" //defaults to round_robin
-  target_type                   = "instance"    //defaults to instance
-
-  deregistration_delay          = 300    //how long the lb waits before changing state of deregistering target from draining to unused//
-
-  stickiness {
-    type            = "lb_cookie"      //defaults to lb_cookie
-    cookie_duration = 86400 //default to 86400 - time period in seconds during which requests from a client should be routed to the same target
-    enabled         = "true"  //default is true
-  } // for tcp protocols for target groups enabled must be false
+  
   health_check {
     healthy_threshold   =  "3"
     unhealthy_threshold =  "10"
@@ -108,24 +92,3 @@ resource "aws_alb_listener_rule" "alb_listener_rule" {
     values = ["/"]
   }
 }
-
-//{
-  //"Id": "Policy1604063315754",
-  //"Version": "2012-10-17",
-  //"Statement": [
-    //{
-    //  "Sid": "Stmt1604063313517",
-    //  "Action": [
-    //    "s3:ListBucket",
-    //    "s3:PutObject"
-    //  ],
-    //  "Effect": "Allow",
-    //  "Resource": "${aws_s3_bucket.alb-logs.id}"
-    //  "Principal": {
-    //    "AWS": [
-    //      "${aws_alb.alb.arn}"
-    //    ]
-    //  }
-    //}
-  //]
-//}
