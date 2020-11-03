@@ -14,36 +14,9 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-resource "aws_instance" "ami-instance" {
-   ami                         = data.aws_ami.ubuntu.id
-   instance_type               = "t2.micro"
-   //vpc_security_group_ids      = [aws_security_group.alb_tg_sg.id]
-   key_name                    = "mykey-pair"
-   associate_public_ip_address = true
-
-   tags = {
-      Name = "server"
-   }
-
-   provisioner "file" {
-      source = "index.js"
-      destination = "/home/ubuntu/index.js"
-   }
-
-   provisioner "file" {
-      source = "index.test.js"
-      destination = "/home/ubuntu/index.test.js"
-   }
-
-   provisioner "file" {
-      source = "package.json"
-      destination = "/home/ubuntu/package.json"
-   }
-}
-
 resource "aws_launch_configuration" "asg_launch_config" {
   name_prefix                 = "launch-config-"
-  image_id                    = aws_instance.ami-instance.id
+  image_id                    = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   key_name                    = "mykey-pair"
   user_data                   = file("bootstrap.sh")
