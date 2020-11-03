@@ -21,7 +21,10 @@ This will create the following
 1 target group which routes traffic to backend server.
 1 autoscaling group with a launch configuration with a min instance of 2 and max of 4
 2 ubuntu instances with sg recieving traffic on port 3000.
+<<<<<<< HEAD
 1 s3 bucket for alb access logs
+=======
+>>>>>>> e1e5d8504aaee4a5fa6eccfa924c22d0f2fa0d1c
 
 
 
