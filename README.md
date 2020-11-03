@@ -12,19 +12,18 @@ The role is to have access to your objects in s3 bucket. this is the repo for th
 See TODO for a list of what is left to be done.
 
 This will create the following
-1 vpc
-2 public subnets
-1 internet gateway attached to the vpc
-2 route tables attached 1 per subnet
-1 Application load balancer with sg attached listening to public traffic on port 80
-1 listener
-1 target group which routes traffic to backend server.
-1 autoscaling group with a launch configuration with a min instance of 2 and max of 4
-2 ubuntu instances with sg recieving traffic on port 3000.
-<<<<<<< HEAD
-1 s3 bucket for alb access logs
-=======
->>>>>>> e1e5d8504aaee4a5fa6eccfa924c22d0f2fa0d1c
+- 1 vpc
+- 2 public subnets
+- 1 internet gateway attached to the vpc
+- 2 route tables attached 1 per subnet
+- 1 Application load balancer with sg attached listening to public traffic on port 80
+- 1 listener
+- 1 target group which routes traffic to backend server.
+- 1 autoscaling group with a launch configuration with a min instance of 2 and max of 4
+- 2 ubuntu ec2 instances with sg recieving traffic on port 3000.
+I have used user data to bootstrap the server at start up so it comes up with the app. aws cli copies the file from s3 so NOTE you have to do this part first as i could complete this as a result of time.
+
+files to copy into s3 are; index.js, package.json and index.test.js
 
 
 
