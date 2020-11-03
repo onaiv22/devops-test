@@ -21,7 +21,7 @@ resource "aws_launch_configuration" "asg_launch_config" {
   key_name                    = "mykey-pair"
   user_data                   = file("bootstrap.sh")
   security_groups             = [aws_security_group.alb_tg_sg.id]
-  iam_instance_profile        = arn:aws:iam::636214711014:role/wipro-role
+  iam_instance_profile        = "wipro-role"
 
   lifecycle {
     create_before_destroy = true
