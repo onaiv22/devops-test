@@ -9,7 +9,6 @@ module "vpc" {
    source = "./modules/vpc"
    cidr_block = var.vpc_cidr
    region     = var.region
-   //tags       = var.tags
 }
 
 module "subnets" {

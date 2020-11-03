@@ -2,6 +2,7 @@ variable "profile" {}
 variable "idle_timeout" {}
 variable "instance_type" {}
 
+
 variable "region" {
    type    = string
    default = "eu-west-1"
@@ -26,6 +27,13 @@ variable "alb-config" {
   }
 }
 variable "ami_id" {}
+variable "health_check_type" {
+  default = "EC2"
+}
+
+variable "health_check_grace_period" {
+  default = "300"
+}
 
 variable "target" {
   type = map(any)
@@ -51,4 +59,16 @@ output "vpc_id" {
 }
 output "vpc_gw" {
    value = module.vpc.vpc_gw
+}
+
+output "alb_sg" {
+   value = module.alb.alb_sg_id
+}
+
+output "tg_sg" {
+   value = module.alb.tg_sg_id
+}
+
+output "subnet_id" {
+   value = module.subnets.subnet_id
 }

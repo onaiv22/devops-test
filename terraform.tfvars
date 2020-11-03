@@ -34,18 +34,16 @@ tags = {
   email             = "femi.okuta@wipro.com"
 }
 
+
 ami_id = "aki-02486376"
+
+health_check_type = 2
 
 name                  = "alb"
 ami_name              = "centos"
 instance_type         = "t2.micro"
 ebs_optimized         = false
-volume_size           = 10
 volume_type           = "gp2"
 volume_delete         = true
 internal              = true
 description           = "default network ash configuration"
-host_role             = "network"
-min_instances         = 2
-max_instances         = 4
-capacity              = 4
