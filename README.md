@@ -27,19 +27,6 @@ files to copy into s3 are; index.js, package.json and index.test.js
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # DevOps Engineer - Technical Test
 We think infrastructure is best represented as code, and provisioning of resources should be automated as much as possible.
 
