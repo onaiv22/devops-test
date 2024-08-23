@@ -8,7 +8,7 @@ pipeline {
     }
 
     environment {
-        buildstatus = 0
+        buildstatus = '0'
         AWS_ACCESS_KEY_ID = credentials('aws-credentials-id')
         AWS_SECRET_ACCESS_KEY = credentials('aws-credentials-id')
         AWS_DEFAULT_REGION = 'eu-west-2'   
@@ -24,18 +24,10 @@ pipeline {
         stage('Run terraform init') {
             steps {
                 ansiColor('xterm') {
-                    dir(path: "devops-test") {
-                        sh 'terraform init'
-                    }
-                }
-            }
-        }
-        stage('Run terraform plan') {
-            steps {
-                ansiColor('xterm') {
-                    dir(path: "devops-test") {
-                        sh 'terraform plan'
-                    }
+                    sh '''
+                        cd devops-test
+                        terraform init
+                    '''
                 }
             }
         }
