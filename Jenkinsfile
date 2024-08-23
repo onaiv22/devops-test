@@ -24,11 +24,14 @@ pipeline {
         stage('Run terraform init') {
             steps {
                 ansiColor('xterm') {
-                    sh '''
-                        cd devops-test
-						ls -l
-                        terraform init
-                    '''
+                    sh 'terraform init'
+                }
+            }
+        }
+        stage('Run terraform plan') {
+            steps {
+                ansiColor('xterm') {
+                    sh 'terraform plan'
                 }
             }
         }
