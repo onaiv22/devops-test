@@ -11,7 +11,7 @@ pipeline {
         buildstatus = '0'
         AWS_ACCESS_KEY_ID = credentials('aws-credentials-id')
         AWS_SECRET_ACCESS_KEY = credentials('aws-credentials-id')
-        AWS_DEFAULT_REGION = 'eu-west-2'   
+        AWS_DEFAULT_REGION = 'eu-west-1'   
     }    
 
     stages {
@@ -31,7 +31,12 @@ pipeline {
         stage('Run terraform plan') {
             steps {
                 ansiColor('xterm') {
-                    sh 'terraform plan'
+                    sh '''
+					    terraform plan \
+						-var "aws_access_key_id=${AWS_ACCESS_KEY_ID}" \
+						-var "aws_secret_access_key=${AWS_SECRET_ACCESS_KEY}" \
+						-var "aws_region=${AWS_DEFAULT_REGION}"
+					'''
                 }
             }
         }
