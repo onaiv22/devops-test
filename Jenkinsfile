@@ -26,6 +26,7 @@ pipeline {
                 ansiColor('xterm') {
                     sh '''
                         cd devops-test
+						ls -l
                         terraform init
                     '''
                 }
