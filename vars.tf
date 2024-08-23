@@ -1,4 +1,4 @@
-# variable "profile" {}
+variable "profile" {}
 variable "idle_timeout" {}
 variable "instance_type" {}
 

@@ -1,9 +1,9 @@
 provider "aws" {
   region  = var.aws_region
-  access_key = var.aws_access_key_id
-  secret_key = var.aws_secret_access_key
-#   version = "2.60"
-#   profile = var.profile
+#   access_key = var.aws_access_key_id
+#   secret_key = var.aws_secret_access_key
+  version = "2.60"
+  profile = var.profile
 
 }
 
@@ -19,7 +19,7 @@ module "subnets" {
    vpc_id     = module.vpc.vpc_id
    cidr_block = var.networks
    region     = var.aws_region
-   # profile    = var.profile
+   profile    = var.profile
    gw_id      = module.vpc.vpc_gw
 
 }
